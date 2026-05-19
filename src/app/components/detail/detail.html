@@ -1,0 +1,30 @@
+<div class="card mb-4 shadow border-primary position-relative" *ngIf="player">
+  <button type="button" 
+          class="btn-close position-absolute top-0 end-0 m-3 bg-light shadow-sm" 
+          aria-label="Cerrar" 
+          (click)="botonX()"
+          style="z-index: 10;"></button>
+  
+  <img [src]="player.imagen" 
+       class="card-img-top object-fit-cover" 
+       alt="Foto de {{ player.nombre }}" 
+       style="height: 200px;"> <div class="card-body">
+    <h3 class="card-title text-primary fw-bold">{{ player.nombre }} {{ player.apellidos }}</h3>
+    <h5 class="text-secondary mb-3">{{ player.posicion }}</h5>
+    
+    <hr>
+    
+    <div class="row text-center my-4">
+      <div class="col-6 border-end"> <h6 class="text-muted mb-1"><i class="bi bi-calendar-event"></i> Edad</h6>
+        <p class="fs-4 fw-bold mb-0">{{ player.edad }} años</p>
+      </div>
+      <div class="col-6">
+        <h6 class="text-muted mb-1"><i class="bi bi-arrows-vertical"></i> Altura</h6>
+        <p class="fs-4 fw-bold mb-0">{{ player.altura }} m</p>
+      </div>
+    </div>
+    
+    <app-media [videoUrl]="player.video"></app-media>
+
+  </div>
+</div>

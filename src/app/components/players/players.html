@@ -1,0 +1,45 @@
+<!-- html y css (BS) del componente. Se controla con lógica de componente.ts y se inyecta en app/app.html-->
+
+<div class="container mt-4">
+  <h2 class="mb-4 text-secondary text-center">Jugadores</h2>
+
+  <div class="row">
+    <div class="col-12 col-lg-7">
+    <!-- Etiqueta del filtro -->
+    <app-search (busqueda)="textoFiltro = $event" (posicion)="posicionFiltro = $event"></app-search> <!-- Aquí le decimos a angular que cuando se emite un evento con 'busqueda', coja el dato ($event) y lo guarde en la var textoFiltro (de players.ts). Lo mismo para posicion -->
+
+      <div class="row g-4">
+        <!-- usamos ngFor para iterar en la variable con la lista de jugadores importada de /players.ts y extrae un jugador cada vez en la variable 'player' para pintarlo con el html -->
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let player of listaPlayers | filter:textoFiltro:posicionFiltro"> <!-- Llamada a la pipe 'filter' para que pase la lista de jugadores según lo que haya en textoFiltro y posicionFiltro -->
+          <!-- ngClass para estilo dinámico según tenemos seleccionado un jugador o no, así vemos is está activo -->
+          <div class="card h-100 shadow-sm border-0" 
+            [ngClass]="{'border-primary border-3 shadow': playerSeleccionado === player,'border-0': playerSeleccionado !== player}"
+            (click)="verDetail(player)"> <!-- Capturamos el clik del user -->
+            <img [src]="player.imagen" class="card-img-top object-fit-cover" alt="Foto de {{ player.nombre }}" style="height: 250px;">
+            <div class="card-body d-flex flex-column text-center">
+              <h5 class="card-title fw-bold">{{ player.nombre }} {{ player.apellidos }}</h5> <!-- clave + campo para pintar datos -->
+              <span class="badge bg-dark mx-auto mb-3 px-3 py-2">{{ player.posicion }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Nueva columna para pintar el detail separado, sticky para dejarlo fijo en scroll de jugadores -->
+    <div class="col-12 col-lg-5 mt-4 mt-lg-0">
+      <div class="sticky-top" style="top: 20px;">       
+        <div class="alert alert-secondary text-center shadow-sm" *ngIf="!playerSeleccionado">
+          <i class="bi bi-hand-index fs-1 d-block mb-2"></i>
+          Selecciona un jugador para ver sus datos
+        </div>
+        <app-detail [player]="playerSeleccionado" (cerrarDetail)="playerSeleccionado = undefined"></app-detail>   <!-- Etiqueta del detail para mostrar el detalle del jugador cuando se seleccione y poder cerrarlo -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+ 
