@@ -33,7 +33,7 @@ messaging.onBackgroundMessage((payload) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const urlToOpen = "/"; // si quieres abrir una ruta concreta, cámbiala
+  const urlToOpen = "/"; 
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
