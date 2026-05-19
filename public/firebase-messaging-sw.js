@@ -2,7 +2,7 @@
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js");
 
-// 👇 MISMA config que environment.ts (firebase)
+
 firebase.initializeApp({
   apiKey: "AIzaSyCLL8opldGHgezRfp-DosIhGNxyJt_5OxI",
   authDomain: "recibiendo-notificaciones-push.firebaseapp.com",
@@ -15,7 +15,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// ✅ Mensajes en background / app cerrada
+
 messaging.onBackgroundMessage((payload) => {
   console.log("[firebase-messaging-sw.js] Background message:", payload);
 
@@ -29,11 +29,11 @@ messaging.onBackgroundMessage((payload) => {
   self.registration.showNotification(title, options);
 });
 
-// ✅ Al hacer click en la notificación, abre/enfoca la web
+
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  const urlToOpen = "/"; // si quieres abrir una ruta concreta, cámbiala
+  const urlToOpen = "/"; 
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
@@ -44,3 +44,4 @@ self.addEventListener("notificationclick", (event) => {
     })
   );
 });
+
